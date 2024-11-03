@@ -1,0 +1,25 @@
+<!-- templates/messaging/inbox.html -->
+{% extends 'messaging/base.html' %}
+
+{% block content %}
+<div class="bg-white rounded-lg shadow-md">
+    <h2 class="text-2xl font-bold p-6 border-b">Inbox</h2>
+    <div class="divide-y">
+        {% for message in messages %}
+            <a href="{% url 'message_detail' message.id %}" class="block p-4 hover:bg-gray-50">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="font-semibold {% if not message.is_read %}text-blue-600{% endif %}">
+                            From: {{ message.sender.username }}
+                        </p>
+                        <p class="text-gray-600 truncate">{{ message.content }}</p>
+                    </div>
+                    <span class="text-sm text-gray-500">{{ message.timestamp|date:"M d, Y" }}</span>
+                </div>
+            </a>
+        {% empty %}
+            <p class="p-4 text-gray-500">No messages in your inbox.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

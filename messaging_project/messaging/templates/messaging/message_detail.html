@@ -1,0 +1,17 @@
+<!-- templates/messaging/message_detail.html -->
+{% extends 'messaging/base.html' %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
+    <div class="mb-4">
+        <h2 class="text-xl font-semibold">From: {{ message.sender.username }}</h2>
+        <p class="text-gray-500">{{ message.timestamp|date:"M d, Y H:i" }}</p>
+    </div>
+    <div class="border-t pt-4">
+        <p class="whitespace-pre-wrap">{{ message.content }}</p>
+    </div>
+    <div class="mt-6">
+        <a href="{% url 'compose' %}" class="inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Reply</a>
+    </div>
+</div>
+{% endblock %}

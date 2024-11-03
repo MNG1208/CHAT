@@ -1,0 +1,36 @@
+<!-- templates/messaging/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Messaging Service{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <nav class="bg-blue-600 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{% url 'inbox' %}" class="text-white text-xl font-bold">MessageApp</a>
+            {% if user.is_authenticated %}
+                <div class="space-x-4">
+                    <a href="{% url 'compose' %}" class="text-white hover:text-gray-200">New Message</a>
+                    <a href="{% url 'inbox' %}" class="text-white hover:text-gray-200">Inbox</a>
+                    <form action="{% url 'logout' %}" method="post" class="inline">
+                        {% csrf_token %}
+                        <button type="submit" class="text-white hover:text-gray-200">Logout</button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="space-x-4">
+                    <a href="{% url 'login' %}" class="text-white hover:text-gray-200">Login</a>
+                    <a href="{% url 'signup' %}" class="text-white hover:text-gray-200">Sign Up</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <main class="container mx-auto mt-6 px-4">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
